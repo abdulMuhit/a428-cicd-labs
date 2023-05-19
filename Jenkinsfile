@@ -7,12 +7,31 @@ node {
                 sh './jenkins/scripts/test.sh' 
         }
          stage('Manual Approval') {
-                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan eksekusi pipeline ke tahap Deploy)'
+                sh './jenkins/scripts/deliver.sh'
+                archiveArtifacts artifacts: 'build/**'
+                input message: 'Sudah selesai cek React App? (Klik "Proceed" untuk lanjut deploy)'
+                sh './jenkins/scripts/kill.sh'
          }
         stage('Deploy') {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
-                sh './jenkins/scripts/kill.sh'
+               // Define the deployment target server details
+                def server = '18.141.12.109'
+                def username = 'ubuntu'
+                def privateKey = credentials('dicoding-ssh')
+                def remoteDir = '/var/www/html'
+                
+                // Copy the build artifacts to the server
+                sshagent(credentials: [privateKey]) {
+                    sh "pwd"
+                    sh "scp -r build/* ${username}@${server}:${remoteDir}"
+                }
+                
+                // Restart the web server (e.g., Nginx)
+                sshagent(credentials: [privateKey]) {
+                    sh "ssh ${username}@${server} 'sudo service nginx restart'"
+                }
+
+                echo 'Now...'
+                echo 'Visit http://18.141.12.109 to see your Node.js/React application in action.'
         }
     }
 }

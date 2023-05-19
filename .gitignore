@@ -32,6 +32,8 @@ bower_components
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
+build
+package-lock.json
 
 # Dependency directories
 node_modules/
