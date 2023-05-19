@@ -14,7 +14,7 @@ node {
          }
         stage('Deploy') {
                // Define the deployment target server details
-                def server = '18.141.12.109'
+                def server = '13.229.123.107'
                 def username = 'ubuntu'
                 def privateKey = credentials('dicoding-ssh')
                 def remoteDir = '/var/www/html'
