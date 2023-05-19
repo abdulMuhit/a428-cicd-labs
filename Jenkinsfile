@@ -18,16 +18,15 @@ node {
                 def username = 'ubuntu'
                 def privateKey = credentials('dicoding-ssh')
                 def remoteDir = '/var/www/html'
-                
+
                 // Copy the build artifacts to the server
-                sshagent(credentials: [privateKey]) {
-                    sh "pwd"
-                    sh "scp -r build/* ${username}@${server}:${remoteDir}"
+                withCredentials([sshUserPrivateKey(credentialsId: privateKey, keyFileVariable: 'KEY_FILE')]) {
+                    sh "scp -r -i $KEY_FILE build/* ${username}@${server}:${remoteDir}"
                 }
                 
                 // Restart the web server (e.g., Nginx)
-                sshagent(credentials: [privateKey]) {
-                    sh "ssh ${username}@${server} 'sudo service nginx restart'"
+                withCredentials([sshUserPrivateKey(credentialsId: privateKey, keyFileVariable: 'KEY_FILE')]) {
+                    sh "ssh -i $KEY_FILE ${username}@${server} 'sudo service nginx restart'"
                 }
 
                 echo 'Now...'
