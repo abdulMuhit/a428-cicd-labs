@@ -6,6 +6,9 @@ node {
         stage('Test') { 
                 sh './jenkins/scripts/test.sh' 
         }
+         stage('Manual Approval') {
+                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk melanjutkan eksekusi pipeline ke tahap Deploy)'
+         }
         stage('Deploy') {
                 sh './jenkins/scripts/deliver.sh'
                 input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
