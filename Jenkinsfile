@@ -7,7 +7,7 @@ node {
 
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
             withEnv(['PRIVATE_KEY=$privateKey']) {
-                sh 'ssh-agent bash -c "ssh-add $PRIVATE_KEY; scp -v -i $PRIVATE_KEY /README.md $username@$server:/var/www/html"'
+                sh 'ssh-agent bash -c "ssh-add $PRIVATE_KEY; scp -v -i $PRIVATE_KEY /README.md ubuntu@13.229.123.107:/var/www/html"'
             }
         }
     }
