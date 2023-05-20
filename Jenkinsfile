@@ -9,6 +9,7 @@ node {
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
 
             echo "Id ${privateKeyCredentialId}"
+            echo "keyFileVariable ${keyFileVariable}"
             echo "pK ${privateKey}"
             echo "u ${username}"
             echo "s ${server}"
