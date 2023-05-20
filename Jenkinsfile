@@ -5,7 +5,32 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
-        echo "hello world" > helo.txt
+        cleanWs()
+        sh "echo 'hello' >> file1.txt"
+        sh "echo 'hello' >> file2.txt"
+        sh "zip -r oneFile.zip file1.txt file2.txt"
+            
+        echo 'Local files.....'       
+        sh 'ls -l'
+
+        command='''
+            unzip -o -d ./ oneFile.zip
+            ls -l
+            date
+            cat /etc/os-release
+        '''
+
+        // Copy file to remote server 
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'dicoding aws',
+        transfers: [ sshTransfer(flatten: false,
+                        remoteDirectory: './',
+                        sourceFiles: 'oneFile.zip'
+        )])
+        ])
+        
+        // Execute commands
+        sshPublisher(publishers: [sshPublisherDesc(configName: 'dicoding aws',
+        transfers: [ sshTransfer(execCommand: command)])])
 
         sshPublisher(
             continueOnError: false, 
@@ -14,8 +39,7 @@ node {
                 sshPublisherDesc(
                 configName: "dicoding aws",
                 transfers: [ 
-                    sshTransfer(execCommand: "echo 'logged'"),
-                    sshTransfer(sourceFiles: "helo.txt")],
+                    sshTransfer(execCommand: "echo 'logged'")],
                 verbose: true
                 )
             ]
