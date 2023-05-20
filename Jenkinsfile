@@ -5,11 +5,13 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
-        // SSH connection and file transfer
-        sshagent(credentials: [sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
+         // Copy the build artifacts to the server
+        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
             sh """
                 scp -i \${privateKey} /README.md \${username}@\${server}:/var/www/html/
             """
         }
     }
 }
+
+
