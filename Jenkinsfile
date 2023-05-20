@@ -7,9 +7,7 @@ node {
 
          // Copy the build artifacts to the server
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            sh """
-                scp -i \${privateKey} /README.md \${username}@\${server}:/var/www/html/
-            """
+            sh "scp -i \${privateKey} /README.md ubuntu@13.229.123.107:/var/www/html/"
         }
     }
 }
