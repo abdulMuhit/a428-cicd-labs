@@ -6,10 +6,8 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
-        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            sh """
-                ssh -v -i \${privateKey} ubuntu@13.229.123.107 "echo 'SSH connection successful'"
-            """
-        }
+        def path = './dicoding-abdul.pem'
+        
+        sh "ssh -v -i ${path} ubuntu@13.229.123.107 "echo 'SSH connection successful'""
     }
 }
