@@ -7,7 +7,9 @@ node {
         
         // Copy the file to the remote VM using SSH
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            sh "scp -r -i ${privateKey} /jenkins/** ${username}@${server}:/var/www/html"
+            writeFile file: 'key.pem', text: privateKey
+            sh 'chmod 400 key.pem'
+            sh "scp -r -i key.pem /jenkins/** ${username}@${server}:/var/www/html"
         }
     }
 }
