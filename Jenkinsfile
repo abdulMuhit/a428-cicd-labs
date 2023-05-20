@@ -8,7 +8,7 @@ node {
         def localFile = '/jenkins/**'
         
         // Copy the file to the remote VM using SSH
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dicoding-ssh', usernameVariable: 'username', passphraseVariable: 'passphrase', privateKeyVariable: 'privateKey']]) {
+        withCredentials([sshUserPrivateKey(credentialsId: privateKey, keyFileVariable: 'privateKey')]) {
             sh "scp -r -i ${privateKey} ${localFile} ${username}@${server}:${remoteDir}"
         }
     }
