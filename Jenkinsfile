@@ -16,8 +16,10 @@ node {
             sh "ls -ld"
             // writeFile file: 'key.pem', text: privateKey
             // sh "cat ./README.md"
-            echoe "testfile " > test.text
+            echo "testfile " > test.text
+            sh "echo hello world > hello.txt"
             sh "cat test.txt"
+            sh "cat hello.txt"
             sh "ls -lah"
             // sh "scp -r -i ${privateKey} ./README.md ${username}@${server}:/var/www/html"
             // writeFile file: 'key.pem', text: privateKey
