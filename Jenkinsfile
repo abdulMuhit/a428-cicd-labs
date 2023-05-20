@@ -8,13 +8,13 @@ node {
         cleanWs()
         sh "echo 'hello' >> file1.txt"
         sh "echo 'hello' >> file2.txt"
-        sh "zip -r oneFile.zip file1.txt file2.txt"
+        // sh "zip -r oneFile.zip file1.txt file2.txt"
             
         echo 'Local files.....'       
         sh 'ls -l'
 
+        //  unzip -o -d ./ oneFile.zip
         command='''
-            unzip -o -d ./ oneFile.zip
             ls -l
             date
             cat /etc/os-release
@@ -24,7 +24,7 @@ node {
         sshPublisher(publishers: [sshPublisherDesc(configName: 'dicoding aws',
         transfers: [ sshTransfer(flatten: false,
                         remoteDirectory: './',
-                        sourceFiles: 'oneFile.zip'
+                        sourceFiles: 'file1.txt'
         )])
         ])
         
