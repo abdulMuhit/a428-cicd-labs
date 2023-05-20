@@ -9,7 +9,7 @@ node {
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
             sh """
                 ssh-agent bash -c 'ssh-add \${privateKey}; \
-                ssh -i \${privateKey} \${username}@\${server} "mkdir -p /home/test"; \
+                ssh \${username}@\${server} "mkdir -p /home/test"; \
                 scp -i \${privateKey} /README.md \${username}@\${server}:/home/test'
             """
         }
