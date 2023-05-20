@@ -11,7 +11,9 @@ node {
             publishers: [
                 sshPublisherDesc(
                 configName: "dicoding aws",
-                transfers: [sshTransfer(sourceFolder: 'build')],
+                transfers: [ 
+                    sshTransfer(execCommand: "echo 'logged'"),
+                    sshTransfer(sourceFiles: "build/**")],
                 verbose: true
                 )
             ]
