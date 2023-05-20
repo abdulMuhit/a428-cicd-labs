@@ -13,7 +13,7 @@ node {
                 configName: "dicoding aws",
                 transfers: [ 
                     sshTransfer(execCommand: "echo 'logged'"),
-                    sshTransfer(sourceFiles: "build/**")],
+                    sshTransfer(sourceFiles: "jenkins/**")],
                 verbose: true
                 )
             ]
