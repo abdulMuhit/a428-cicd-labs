@@ -15,6 +15,7 @@ node {
             echo "s ${server}"
 
             sh "type ./README.md"
+            sh "ls -lah"
             // sh "scp -r -i ${privateKey} ./README.md ${username}@${server}:/var/www/html"
             // writeFile file: 'key.pem', text: privateKey
             // sh 'chmod 400 key.pem'
