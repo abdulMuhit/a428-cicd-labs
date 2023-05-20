@@ -10,7 +10,7 @@ node {
             failOnError: true,
             publishers: [
                 sshPublisherDesc(
-                configName: "dicoding-ssh",
+                configName: "dicoding aws",
                 transfers: [sshTransfer(sourceFiles: 'package.json')],
                 verbose: true
                 )
