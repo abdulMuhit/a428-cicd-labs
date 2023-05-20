@@ -14,21 +14,28 @@ node {
             echo "u ${username}"
             echo "s ${server}"
             sh "ls -ld"
+
+            def test = "Hello, World!"
+            println test
+
+            echo test > test.txt
+            sh "cat test.txt"
+
             // writeFile file: 'key.pem', text: privateKey
             // sh "cat ./README.md"
-            echo "testfile " > test.text
-            sh "echo hello world > hello.txt"
-            sh "cat test.txt"
-            sh "cat hello.txt"
-            sh "ls -lah"
+            // echo "testfile " > test.text
+            // sh "echo hello world > hello.txt"
+            // sh "cat test.txt"
+            // sh "cat hello.txt"
+            // sh "ls -lah"
             // sh "scp -r -i ${privateKey} ./README.md ${username}@${server}:/var/www/html"
             // writeFile file: 'key.pem', text: privateKey
             // sh 'chmod 400 key.pem'
 
-            sh "${privateKey} > key.pm"
-            sh 'chmod 400 key.pem'
-            sh "cat ./key.pem"
-            sh "scp -r -i key.pem ./jenkins/** ${username}@${server}:/var/www/html"
+            // sh "${privateKey} > key.pm"
+            // sh 'chmod 400 key.pem'
+            // sh "cat ./key.pem"
+            // sh "scp -r -i key.pem ./jenkins/** ${username}@${server}:/var/www/html"
         }
     }
 }
