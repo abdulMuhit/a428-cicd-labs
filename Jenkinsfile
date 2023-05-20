@@ -8,7 +8,7 @@ node {
 
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
             sh """
-                ssh -v -i \${privateKey} \${username}@\${server} "echo 'SSH connection successful'"
+                ssh -v -i \${privateKey} ubuntu@13.229.123.107 "echo 'SSH connection successful'"
             """
         }
     }
