@@ -3,13 +3,11 @@ node {
         // Define the SSH details for the remote VM
         def server = '13.229.123.107'
         def username = 'ubuntu'
-        def privateKey = credentials('dicoding-ssh')
-        def remoteDir = '/var/www/html'
-        def localFile = '/jenkins/**'
+        def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
         
         // Copy the file to the remote VM using SSH
-        withCredentials([sshUserPrivateKey(credentialsId: privateKey, keyFileVariable: 'privateKey')]) {
-            sh "scp -r -i ${privateKey} ${localFile} ${username}@${server}:${remoteDir}"
+        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
+            sh "scp -r -i ${privateKey} /jenkins/** ${username}@${server}:/var/www/html"
         }
     }
 }
