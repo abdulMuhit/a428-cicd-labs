@@ -23,7 +23,7 @@ node {
                     transfers: [ 
                         sshTransfer(execCommand: "echo 'logged'"),
                         sshTransfer(flatten: false,
-                        remoteDirectory: '/var/www/html',
+                        remoteDirectory: '../var/www/html',
                         sourceFiles: 'build/**'
                         )
                     ],
