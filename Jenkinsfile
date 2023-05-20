@@ -36,6 +36,7 @@ node {
 
         }
 
+        sh 'chmod +x ./jenkins/scripts/deploy-aws.sh'
         sh './jenkins/scripts/deploy-aws.sh'
     }
 }
