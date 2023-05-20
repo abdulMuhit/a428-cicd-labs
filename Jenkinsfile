@@ -11,7 +11,7 @@ node {
             publishers: [
                 sshPublisherDesc(
                 configName: "dicoding aws",
-                transfers: [sshTransfer(sourceFiles: 'package.json')],
+                transfers: [sshTransfer(sourceFiles: '/jenkins/**')],
                 verbose: true
                 )
             ]
