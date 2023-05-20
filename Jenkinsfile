@@ -7,8 +7,9 @@ node {
         
         // Copy the file to the remote VM using SSH
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            sh "ls -lah"
-            sh "scp -r -i ${privateKey} README.md ${username}@${server}:/var/www/html"
+            // sh "ls -lah"
+            // sh "scp -r -i ${privateKey} README.md ${username}@${server}:/var/www/html"
+            sh "ssh -i ${privateKey} ${username}@${server}:/var/www/html 'ls -lah'"
         }
     }
 }
