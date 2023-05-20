@@ -11,9 +11,11 @@ node {
         }
          stage('Manual Approval') {
                 sh './jenkins/scripts/deliver.sh'
-                input message: 'Sudah selesai cek React App? (Klik "Proceed" untuk lanjut deploy)'
+                input message: 'Sudah selesai cek React App? (Klik "Proceed" untuk lanjut deploy ke AWS)'
+                sh './jenkins/scripts/kill.sh'
          }
         stage('Deploy') {
+
             sshPublisher(
                 continueOnError: false, 
                 failOnError: true,
@@ -33,5 +35,7 @@ node {
             )
 
         }
+
+        sh './jenkins/scripts/deploy-aws.sh'
     }
 }
