@@ -5,9 +5,9 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
-         // Copy the build artifacts to the server
-        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            sh "scp -i \${privateKey} /README.md ubuntu@13.229.123.107:/var/www/html/"
+
+        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'KEY_FILE')]) {
+                    sh "ssh -i $KEY_FILE ${username}@${server} 'echo connected established ready ok'"
         }
     }
 }
