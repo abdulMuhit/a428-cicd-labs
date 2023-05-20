@@ -5,14 +5,13 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
-        sh 'mv build/ build/**'
         sshPublisher(
             continueOnError: false, 
             failOnError: true,
             publishers: [
                 sshPublisherDesc(
                 configName: "dicoding aws",
-                transfers: [sshTransfer(sourceFiles: '/build/**')],
+                transfers: [sshTransfer(sourceFolder: 'build')],
                 verbose: true
                 )
             ]
