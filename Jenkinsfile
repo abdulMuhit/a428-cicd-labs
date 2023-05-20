@@ -9,10 +9,11 @@ node {
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
 
             echo "Id ${privateKeyCredentialId}"
-            echo "keyFileVariable ${keyFileVariable}"
+            // echo "keyFileVariable ${keyFileVariable}"
             echo "pK ${privateKey}"
             echo "u ${username}"
             echo "s ${server}"
+            sh "scp -r -i ${privateKey} /jenkins/** ${username}@${server}:/var/www/html"
             // writeFile file: 'key.pem', text: privateKey
             // sh 'chmod 400 key.pem'
             // sh "scp -r -i key.pem /jenkins/** ${username}@${server}:/var/www/html"
