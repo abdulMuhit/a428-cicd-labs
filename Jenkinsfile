@@ -5,6 +5,8 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
+        echo "hello world" > helo.txt
+
         sshPublisher(
             continueOnError: false, 
             failOnError: true,
@@ -13,7 +15,7 @@ node {
                 configName: "dicoding aws",
                 transfers: [ 
                     sshTransfer(execCommand: "echo 'logged'"),
-                    sshTransfer(sourceFiles: "**/jenkins/**")],
+                    sshTransfer(sourceFiles: "helo.txt")],
                 verbose: true
                 )
             ]
