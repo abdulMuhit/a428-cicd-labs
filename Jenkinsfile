@@ -7,12 +7,7 @@ node {
         
         // Copy the file to the remote VM using SSH
         withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            sh '''
-                ssh-agent bash -c "ssh-add ${privateKey};
-            '''
-
             sh "scp -r -i ${privateKey} ./README.md ${username}@${server}:/var/www/html"
-
         }
     }
 }
