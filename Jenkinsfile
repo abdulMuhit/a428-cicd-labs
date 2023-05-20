@@ -14,7 +14,6 @@ node {
                 input message: 'Sudah selesai cek React App? (Klik "Proceed" untuk lanjut deploy)'
          }
         stage('Deploy') {
-
             sshPublisher(
                 continueOnError: false, 
                 failOnError: true,
@@ -23,7 +22,10 @@ node {
                     configName: "dicoding aws",
                     transfers: [ 
                         sshTransfer(execCommand: "echo 'logged'"),
+                        sshTransfer(flatten: false,
+                        remoteDirectory: './',
                         sourceFiles: 'build/**'
+                        )
                     ],
                     verbose: true
                     )

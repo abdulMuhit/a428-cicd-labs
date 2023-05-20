@@ -22,7 +22,8 @@ node {
 
         // Copy file to remote server 
         sshPublisher(publishers: [sshPublisherDesc(configName: 'dicoding aws',
-        transfers: [ sshTransfer(flatten: false,
+        transfers: [ 
+            sshTransfer(flatten: false,
                         remoteDirectory: './',
                         sourceFiles: 'file1.txt'
         )])
