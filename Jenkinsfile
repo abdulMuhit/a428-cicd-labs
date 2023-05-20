@@ -1,41 +1,21 @@
-node {
-    stage('Copy File') {
-        // Define the SSH details for the remote VM
-        def server = '13.229.123.107'
-        def username = 'ubuntu'
-        def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
-        
-        // Copy the file to the remote VM using SSH
-        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
+pipeline {
+    agent any
+    stages {
+        stage('Send File over SSH') {
+            steps {
+                sshagent(['dicoding-ssh']) {
+                    script {
+                        def remoteServer = '13.229.123.107'
+                        def remoteUser = 'ubuntu'
+                        def remoteFilePath = '/var/www/html'
+                        def localFilePath = '/jenkins/**'
 
-            echo "Id ${privateKeyCredentialId}"
-            // echo "keyFileVariable ${keyFileVariable}"
-            echo "pK ${privateKey}"
-            echo "u ${username}"
-            echo "s ${server}"
-            sh "ls -ld"
-
-            def test = "Hello, World!"
-            println test
-
-            echo test > test.txt
-            sh "cat test.txt"
-
-            // writeFile file: 'key.pem', text: privateKey
-            // sh "cat ./README.md"
-            // echo "testfile " > test.text
-            // sh "echo hello world > hello.txt"
-            // sh "cat test.txt"
-            // sh "cat hello.txt"
-            // sh "ls -lah"
-            // sh "scp -r -i ${privateKey} ./README.md ${username}@${server}:/var/www/html"
-            // writeFile file: 'key.pem', text: privateKey
-            // sh 'chmod 400 key.pem'
-
-            // sh "${privateKey} > key.pm"
-            // sh 'chmod 400 key.pem'
-            // sh "cat ./key.pem"
-            // sh "scp -r -i key.pem ./jenkins/** ${username}@${server}:/var/www/html"
+                        // Copy the file to the remote server
+                        // sshCommand remote: remoteServer, user: remoteUser, command: "mkdir -p ${remoteFilePath}"
+                        sshCommand remote: remoteServer, user: remoteUser, command: "scp ${localFilePath} ${remoteUser}@${remoteServer}:${remoteFilePath}"
+                    }
+                }
+            }
         }
     }
 }
