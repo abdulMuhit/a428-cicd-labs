@@ -5,11 +5,17 @@ node {
         def username = 'ubuntu'
         def privateKeyCredentialId = 'dicoding-ssh' // Replace with the ID of your private key credential
 
-        withCredentials([sshUserPrivateKey(credentialsId: privateKeyCredentialId, keyFileVariable: 'privateKey')]) {
-            withEnv(['PRIVATE_KEY=$privateKey']) {
-                sh 'ssh-agent bash -c "ssh-add $PRIVATE_KEY; scp -v -i $PRIVATE_KEY /README.md ubuntu@13.229.123.107:/var/www/html"'
-            }
-        }
+        sshPublisher(
+            continueOnError: false, 
+            failOnError: true,
+            publishers: [
+                sshPublisherDesc(
+                configName: "dicoding-ssh",
+                transfers: [sshTransfer(sourceFiles: 'package.json')],
+                verbose: true
+                )
+            ]
+        )
     }
 }
 
