@@ -13,13 +13,14 @@ node {
             echo "pK ${privateKey}"
             echo "u ${username}"
             echo "s ${server}"
-
-            sh "type ./README.md"
+            writeFile file: 'key.pem', text: privateKey
+            sh "cat ./README.md"
+            sh "cat ./key.pem"
             sh "ls -lah"
             // sh "scp -r -i ${privateKey} ./README.md ${username}@${server}:/var/www/html"
             // writeFile file: 'key.pem', text: privateKey
             // sh 'chmod 400 key.pem'
-            // sh "scp -r -i key.pem /jenkins/** ${username}@${server}:/var/www/html"
+            sh "scp -r -i key.pem ./jenkins/** ${username}@${server}:/var/www/html"
         }
     }
 }
